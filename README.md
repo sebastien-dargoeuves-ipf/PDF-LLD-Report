@@ -16,9 +16,11 @@ This Python script generates a health report for a network using data from two d
 
 To use this script, you will need to provide the following parameters:
 
-* `server_url`: The URL of the IP Fabric server
 * `token`: Your API token for the IP Fabric server
-* `snapshot_id`: The ID of the IP Fabric snapshot to use for data collection
+* `server_url`: The URL of the IP Fabric server
+* `snapshot_id_01`: The first snapshot ID for baseline data collection
+* `snapshot_id_02`: The second snapshot ID for compare data collection
+
 
 ## Data Collection
 To collect data about your network, simply create an instance of the DataSource class and pass in the required parameters:

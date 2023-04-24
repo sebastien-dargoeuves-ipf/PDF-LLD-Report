@@ -3,15 +3,18 @@ from src.data_source import DataSource
 from src.data_source import PathSimulation
 
 import pdfkit
+import os
 
 
 def main():
-    # Initialize DataSource with server_url and token
-    token = ''  # netsim
+    # Initialize DataSource with a token and server_url
+    token = os.environ.get('API-TOKEN')  # netsim
     server_url = 'https://10.194.50.22/'  # netsim
+    snapshot_id_01 = '33622054-dd2e-4456-87ec-18bcd73907d5'
+    snapshot_id_02 = 'f98a4241-e68b-49da-bf3e-9e8fb32e582b'
 
-    data_source = DataSource(server_url, token, '$last')
-    data_source_prev = DataSource(server_url, token, '$prev')
+    data_source = DataSource(server_url, token, snapshot_id_01)
+    data_source_prev = DataSource(server_url, token, snapshot_id_02)
 
     # Set up the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('.'))
@@ -24,7 +27,7 @@ def main():
             'Destination IP': '172.16.2.20',
             'Source port': '1024-65535',
             'Destination port': '80,443',
-            'Snapshot ID': '$last',
+            'Snapshot ID': snapshot_id_01,
             'Protocol': 'tcp',
             'TTL': 64
         },
@@ -34,7 +37,7 @@ def main():
             'Destination IP': '172.16.5.20',
             'Source port': '1024-65535',
             'Destination port': '80',
-            'Snapshot ID': '$last',
+            'Snapshot ID': snapshot_id_01,
             'Protocol': 'tcp',
             'TTL': 64
         },
@@ -42,7 +45,7 @@ def main():
 
     path_context = []
     for path_def in path_params_list:
-        ipf_path = PathSimulation(server_url2, token2, path_def)
+        ipf_path = PathSimulation(server_url, token, path_def)
         ipf_path_svg = ipf_path.response_svg.text
         path_context.append({**path_def, **{'path_overview': ipf_path_svg}})
 
