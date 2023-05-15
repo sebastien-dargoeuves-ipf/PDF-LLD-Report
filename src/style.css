@@ -1,0 +1,153 @@
+    /* Set the font to Calibri */
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    /* Style for the first page */
+    @page {
+        margin: 0;
+        size: A4 portrait;
+
+        @top-center {
+            content: "IPF Report";
+            font-size: 30px;
+            text-transform: uppercase;
+            color: #333;
+        }
+    }
+
+    /* Style for the table */
+    table {
+        margin: 0px 0 20px 0;
+        width: 100%;
+        border-spacing: 5px;
+    }
+
+    tr {
+        margin: 20px 0 20px 0;
+    }
+
+    th,
+    td {
+        padding: 10px 15px 10px 15px;
+        text-align: left;
+        border-radius: 4px;
+    }
+
+
+    tr:nth-child(even) {
+        background-color: #E5E5E5;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #F6F6F6;
+    }
+
+    .logo {
+        text-align: center;
+        margin-top: 50%;
+        margin-bottom: 0;
+    }
+
+    .icon-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+    }
+
+    .section-1 {
+        padding: 0 10px 0 10px;
+    }
+
+    .section-2 {
+        padding: 0 10px 0 10px;
+    }
+
+    .section-3 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .section-4 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .section-5 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .section-6 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .section-7 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .section-8 {
+        padding: 0 10px 20px 10px;
+    }
+
+    .main-titles {
+        padding: 0px 10px 0 10px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        margin: 0 40px 0 40px;
+        padding: 0;
+    }
+
+    .main-title {
+        text-align: center;
+        font-size: 23px;
+        margin-bottom: 70px;
+        margin-top: -30px;
+        color: #148567;
+    }
+
+    .section-title {
+        font-weight: 800;
+        font-size: 26px;
+        line-height: 1.2;
+        margin: 10px 0 15px 0;
+        page-break-before: always;
+    }
+
+    .table-cell-width {
+        width: 20%;
+    }
+
+    .table-spacing {
+        margin: 40px 0 20px -10px;
+    }
+
+    .table-cell-width-even {
+        background-color: #E5E5E5;
+    }
+
+    .main-title-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        margin: 20px 10px 5px 10px;
+    }
+
+    .numbers {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        background-color: #148567;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        border-radius: 30px;
+        width: 30px;
+        height: 30px;
+    }

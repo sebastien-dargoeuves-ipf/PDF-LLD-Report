@@ -1,67 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>IPF Report</title>
-    <style>
-      /* Set the font to Calibri */
-      body {
-        font-family: Calibri, sans-serif;
-      }
 
-      /* Style for the first page */
-      @page {
-        margin: 0;
-        size: A4 portrait;
-        @top-center {
-          content: "IPF Report";
-          font-size: 30px;
-          text-transform: uppercase;
-          color: #333;
-        }
-      }
+<head>
+  <meta charset="utf-8">
+  <title>IPF Report</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
 
-      /* Style for the table */
-      table {
-        border-collapse: collapse;
-        margin: 20px 0;
-        width: 100%;
-      }
-
-      th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-
-      th {
-        background-color: #f0f0f0;
-      }
-
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-      .title {
-        text-align: center;
-        margin-top: 50%; /* optional margin-top */
-      }
-    </style>
-  </head>
-  <body>
-    <!-- First page content -->
-    <br><br><br><br>
-    <div class="title">
-        <h1>IPF DATA REPORT</h1>
+<body>
+  <!-- First page content -->
+  <br><br><br><br>
+  <div class="logo"><img src="https://ipfabric.io/wp-content/uploads/2023/SVG/IP_Fabric_VerticalLogo_Color.svg"
+      width="300" />
+  </div>
+  <div class="main-title">
+    <h1>DATA REPORT</h1>
+  </div>
+  <div style="height: 100%; width: 100%; position: fixed; top: 0; left: 0; background-color: white; z-index: -1;"></div>
+  <!-- Second page content -->
+  <div class="container">
+    <div class="section-1">
+      <div class="icon-container">
+        <<div><img src="https://ipfabric.io/wp-content/uploads/2023/pdf-gen/documents.png" width="25"
+            style="margin-right:10px;" /></div>
+        <div class="section-title"> IP Fabric Data Overview</div>
+      </div>
+      <div>
+        The IP Fabric data report presents a comprehensive network infrastructure analysis, providing detailed insights
+        into
+        various sections such as network inventory, interfaces, addressing, switching, routing, and wireless
+        technologies.
+        <br><br>
+        The report is generated based on two snapshots, showcasing the values of the first snapshot and the delta value
+        (+/-) compared to the second snapshot. This approach allows network engineers and administrators to track the
+        changes and improvements made to the network over time.
+      </div>
     </div>
-    <div style="height: 100%; width: 100%; position: fixed; top: 0; left: 0; background-color: white; z-index: -1;"></div>
-    <!-- Second page content -->
-    <h1 style="page-break-before: always;"> IP Fabric Data Overview</h1>
-    <div>
-      The IP Fabric data report presents a comprehensive network infrastructure analysis, providing detailed insights into various sections such as network inventory, interfaces, addressing, switching, routing, and wireless technologies.
-      <br>
-      The report is generated based on two snapshots, showcasing the values of the first snapshot and the delta value (+/-) compared to the second snapshot. This approach allows network engineers and administrators to track the changes and improvements made to the network over time.
+    <div class="main-title-container">
+      <div class="numbers">1</div>
+      <h2 class="main-titles">Network data summary</h2>
     </div>
-    <h2 >Network data summary</h2>
     <table>
       <tr>
         <th>IP Fabric url</th>
@@ -97,7 +75,8 @@
       </tr>
       <tr>
         <th>Network interfaces</th>
-        <td>{{ network_interfaces }} ({% if network_interfaces_delta > 0 %}+{% endif %}{{ network_interfaces_delta }})</td>
+        <td>{{ network_interfaces }} ({% if network_interfaces_delta > 0 %}+{% endif %}{{ network_interfaces_delta }})
+        </td>
       </tr>
       <tr>
         <th>Network hosts/IP endpoints</th>
@@ -112,42 +91,69 @@
         <td>{{ vrfs }} ({% if vrfs_delta > 0 %}+{% endif %}{{ vrfs_delta }})</td>
       </tr>
     </table>
-
-    <h2>Network vendors</h2>
-    <div>
-      This report provides key statistical data on network vendors in two snapshots, showing the number of devices by vendor and the changes in the number of devices over time.
+    <div class="main-title-container">
+      <div class="numbers">2</div>
+      <h2 class="main-titles">Network vendors</h2>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Vendor</th>
-          <th>Devices count</th>
-          <th>Families count</th>
-          <th>Models count</th>
-          <th>Platforms count</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="section-2">
+      <div>
+        This report provides key statistical data on network vendors in two snapshots, showing the number of devices by
+        vendor and the changes in the number of devices over time.
+      </div>
+      <table class="table-spacing">
+        <thead>
+          <tr>
+            <th class="table-cell-width-even">Vendor</th>
+            <th class="table-cell-width-even">Devices count</th>
+          </tr>
+        </thead>
+        <tbody>
         {% for vendor in vendors %}
-        <tr>
-          <td>{{ vendor.vendor }}</td>
-          <td>{{ vendor.devicesCount }} ({{ vendor.devicesCount - vendors_prev[loop.index0].devicesCount }})</td>
-          <td>{{ vendor.familiesCount }} ({{ vendor.familiesCount - vendors_prev[loop.index0].familiesCount }})</td>
-          <td>{{ vendor.modelsCount }} ({{ vendor.modelsCount - vendors_prev[loop.index0].modelsCount }})</td>
-          <td>{{ vendor.platformsCount }} ({{ vendor.platformsCount - vendors_prev[loop.index0].platformsCount }})</td>
-        </tr>
+          <tr>
+            <td class="table-cell-width">{{ vendor.devicesCount }} ({{ vendor.devicesCount -
+              vendors_prev[loop.index0].devicesCount }})</td>
+            <td class="table-cell-width">{{ vendor.familiesCount }} ({{ vendor.familiesCount -
+              vendors_prev[loop.index0].familiesCount }})</td>
+            </td>
+          </tr>
         {% endfor %}
-      </tbody>
-    </table>
-
-    <h2>Interfaces overview</h2>
-    <div>
-      The Interfaces overview section provides insights into the network interfaces of the infrastructure. It reports on the total number of active interfaces, the number of edge interfaces, and the number of switchport interfaces. It also includes information on channel interfaces and the number of IPv4 and IPv6 tunnel interfaces. Finally, it provides details on the number of IPsec tunnels and gateways. The delta values indicate changes between two snapshots, highlighting any new or removed interfaces in the network.
+        </tbody>
+        <thead>
+          <tr>
+            <th class="table-cell-width-even">Models count</th>
+            <th class="table-cell-width-even">Platforms count</th>
+            <th class="table-cell-width-even">Families count</th>
+          </tr>
+        </thead>
+        <tbody class="table-spacing">
+          {% for vendor in vendors %}
+          <tr>
+            <td class="table-cell-width">{{ vendor.vendor }}</td>
+            <td class="table-cell-width">{{ vendor.modelsCount }} ({{ vendor.modelsCount -
+              vendors_prev[loop.index0].modelsCount }})</td>
+            <td class="table-cell-width">{{ vendor.platformsCount }} ({{ vendor.platformsCount -
+              vendors_prev[loop.index0].platformsCount }})
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="main-title-container">
+      <div class="numbers">3</div>
+      <h2 class="main-titles">Interfaces overview</h2>
+    </div>
+    <div class="section-3">
+      The Interfaces overview section provides insights into the network interfaces of the infrastructure. It reports on
+      the total number of active interfaces, the number of edge interfaces, and the number of switchport interfaces. It
+      also includes information on channel interfaces and the number of IPv4 and IPv6 tunnel interfaces. Finally, it
+      provides details on the number of IPsec tunnels and gateways. The delta values indicate changes between two
+      snapshots, highlighting any new or removed interfaces in the network.
     </div>
     <table>
       <tr>
         <th>Network interfaces</th>
-        <td>{{ network_interfaces }} ({% if network_interfaces_delta > 0 %}+{% endif %}{{ network_interfaces_delta }})</td>
+        <td>{{ network_interfaces }} ({% if network_interfaces_delta > 0 %}+{% endif %}{{ network_interfaces_delta }})
+        </td>
       </tr>
       <tr>
         <th>Active interfaces</th>
@@ -159,19 +165,24 @@
       </tr>
       <tr>
         <th>Switchport interfaces</th>
-        <td>{{ interfaces_switchport }} ({% if interfaces_switchport_delta > 0 %}+{% endif %}{{ interfaces_switchport_delta }})</td>
+        <td>{{ interfaces_switchport }} ({% if interfaces_switchport_delta > 0 %}+{% endif %}{{
+          interfaces_switchport_delta }})</td>
       </tr>
       <tr>
         <th>Channel interfaces</th>
-        <td>{{ interfaces_channels }} ({% if interfaces_channels_delta > 0 %}+{% endif %}{{ interfaces_channels_delta }})</td>
+        <td>{{ interfaces_channels }} ({% if interfaces_channels_delta > 0 %}+{% endif %}{{ interfaces_channels_delta
+          }})
+        </td>
       </tr>
       <tr>
         <th>IPv4 Tunnel interfaces</th>
-        <td>{{ interfaces_tunnels_ipv4 }} ({% if interfaces_tunnels_ipv4_delta > 0 %}+{% endif %}{{ interfaces_tunnels_ipv4_delta }})</td>
+        <td>{{ interfaces_tunnels_ipv4 }} ({% if interfaces_tunnels_ipv4_delta > 0 %}+{% endif %}{{
+          interfaces_tunnels_ipv4_delta }})</td>
       </tr>
       <tr>
         <th>IPv6 Tunnel interfaces</th>
-        <td>{{ interfaces_tunnels_ipv6 }} ({% if interfaces_tunnels_ipv6_delta > 0 %}+{% endif %}{{ interfaces_tunnels_ipv6_delta }})</td>
+        <td>{{ interfaces_tunnels_ipv6 }} ({% if interfaces_tunnels_ipv6_delta > 0 %}+{% endif %}{{
+          interfaces_tunnels_ipv6_delta }})</td>
       </tr>
       <tr>
         <th>IPsec Gateways</th>
@@ -182,10 +193,16 @@
         <td>{{ ipsec_tunnels }} ({% if ipsec_tunnels_delta > 0 %}+{% endif %}{{ ipsec_tunnels_delta }})</td>
       </tr>
     </table>
-
-    <h2>Addressing overview</h2>
-    <div>
-      The Addressing Overview section provides a detailed summary of the network addressing aspects based on two snapshots. It presents statistical data on managed networks, IPv4 and IPv6 interfaces, Address Resolution Protocol (ARP) tables, and Virtual Route Forwarding (VRF) instances. The first number indicates the current value, and the second number represents the change between two snapshots. This section provides valuable insights into the growth and changes in network addressing over time.
+    <div class="main-title-container">
+      <div class="numbers">4</div>
+      <h2 class="main-titles">Addressing overview</h2>
+    </div>
+    <div class="section-4">
+      The Addressing Overview section provides a detailed summary of the network addressing aspects based on two
+      snapshots. It presents statistical data on managed networks, IPv4 and IPv6 interfaces, Address Resolution Protocol
+      (ARP) tables, and Virtual Route Forwarding (VRF) instances. The first number indicates the current value, and the
+      second number represents the change between two snapshots. This section provides valuable insights into the growth
+      and changes in network addressing over time.
     </div>
     <table>
       <tr>
@@ -213,10 +230,17 @@
         <td>{{ mac }} ({% if mac_delta > 0 %}+{% endif %}{{ mac_delta }})</td>
       </tr>
     </table>
-
-    <h2>Switching overview</h2>
-    <div>
-      The Switching overview section provides key statistics on the status of network switching components. These include data on MAC addresses, VLANs, and Spanning Tree Protocol (STP) instances, bridges, virtual ports, and neighbors. The data is presented in two numbers: the first value represents the initial snapshot, and the second value (+X) represents the difference between the current snapshot and the previous one.
+    <div class="main-title-container">
+      <div class="numbers">5</div>
+      <h2 class="main-titles">Switching overview</h2>
+    </div>
+    <div class="section-5">
+      The Switching overview section provides key statistics on the status of network switching components. These
+      include
+      data on MAC addresses, VLANs, and Spanning Tree Protocol (STP) instances, bridges, virtual ports, and neighbors.
+      The
+      data is presented in two numbers: the first value represents the initial snapshot, and the second value (+X)
+      represents the difference between the current snapshot and the previous one.
     </div>
     <table>
       <tr>
@@ -248,10 +272,17 @@
         <td>{{ stp_neighbors }} ({% if stp_neighbors_delta > 0 %}+{% endif %}{{ stp_neighbors_delta }})</td>
       </tr>
     </table>
-
-  <h2>Routing overview</h2>
-    <div>
-      The Routing overview section provides statistical data on the number of IPv4 and IPv6 routes, as well as the number of routes per protocol, including Connected, Static, BGP, OSPF, IS-IS, EIGRP, and RIP. Additionally, the report shows changes between two snapshots, including the number of added or removed routes for each protocol. This information allows network administrators to quickly understand the changes that have occurred in their network's routing tables.
+    <div class="main-title-container">
+      <div class="numbers">6</div>
+      <h2 class="main-titles">Routing overview</h2>
+    </div>
+    <div class="section-6">
+      The Routing overview section provides statistical data on the number of IPv4 and IPv6 routes, as well as the
+      number
+      of routes per protocol, including Connected, Static, BGP, OSPF, IS-IS, EIGRP, and RIP. Additionally, the report
+      shows changes between two snapshots, including the number of added or removed routes for each protocol. This
+      information allows network administrators to quickly understand the changes that have occurred in their network's
+      routing tables.
     </div>
     <table>
       <tr>
@@ -267,7 +298,6 @@
         <th>Multicast routes</th>
         <td>{{ routes_multicast }} ({% if routes_multicast_delta > 0 %}+{% endif %}{{ routes_multicast_delta }})</td>
       </tr>
-      <tr>
       <tr>
         <th>Attached routes</th>
         <td>{{ routes_attached }} ({% if routes_attached_delta > 0 %}+{% endif %}{{ routes_attached_delta }})</td>
@@ -296,49 +326,72 @@
         <td>{{ routes_rip }} ({% if routes_rip_delta > 0 %}+{% endif %}{{ routes_rip_delta }})</td>
       </tr>
       </tr>
-        <th>Static routes</th>
-        <td>{{ routes_static }} ({% if routes_static_delta > 0 %}+{% endif %}{{ routes_static_delta }})</td>
+      <th>Static routes</th>
+      <td>{{ routes_static }} ({% if routes_static_delta > 0 %}+{% endif %}{{ routes_static_delta }})</td>
       </tr>
     </table>
-
-    <h2>Wireless overview</h2>
-    <div>
-      The Wireless overview section provides statistical data about the wireless infrastructure within the network, including controllers, access points, radios, and clients. The first number in each row represents the value from the first snapshot, and the second number (+X) represents the delta value compared to the second snapshot provided. This data can be used to gain insights into the overall performance and utilization of the wireless network infrastructure.
+    <div class="main-title-container">
+      <div class="numbers">7</div>
+      <h2 class="main-titles">Wireless overview</h2>
+    </div>
+    <div class="section-7">
+      The Wireless overview section provides statistical data about the wireless infrastructure within the network,
+      including controllers, access points, radios, and clients. The first number in each row represents the value from
+      the first snapshot, and the second number (+X) represents the delta value compared to the second snapshot
+      provided.
+      This data can be used to gain insights into the overall performance and utilization of the wireless network
+      infrastructure.
     </div>
     <table>
       <tr>
         <th>Wireless controllers</th>
-        <td>{{ wireless_controllers }} ({% if wireless_controllers_delta > 0 %}+{% endif %}{{ wireless_controllers_delta }})</td>
+        <td>{{ wireless_controllers }} ({% if wireless_controllers_delta > 0 %}+{% endif %}{{ wireless_controllers_delta
+          }})</td>
       </tr>
       <tr>
         <th>Wireless access points</th>
-        <td>{{ wireless_access_points }} ({% if wireless_access_points_delta > 0 %}+{% endif %}{{ wireless_access_points_delta }})</td>
+        <td>{{ wireless_access_points }} ({% if wireless_access_points_delta > 0 %}+{% endif %}{{
+          wireless_access_points_delta }})</td>
       </tr>
       <tr>
         <th>Wireless radios and SSID summary</th>
-        <td>{{ wireless_radios_ssid_summary }} ({% if wireless_radios_ssid_summary_delta > 0 %}+{% endif %}{{ wireless_radios_ssid_summary_delta }})</td>
+        <td>{{ wireless_radios_ssid_summary }} ({% if wireless_radios_ssid_summary_delta > 0 %}+{% endif %}{{
+          wireless_radios_ssid_summary_delta }})</td>
       </tr>
       <tr>
         <th>Wireless clients</th>
         <td>{{ wireless_clients }} ({% if wireless_clients_delta > 0 %}+{% endif %}{{ wireless_clients_delta }})</td>
       </tr>
     </table>
-    <h1 style="page-break-before: always;"> Simulation Compliance</h1>
-    <div>
-      Path Compliance is a critical aspect of network management that helps ensure the proper functioning of network paths and their compliance with organizational policies. This section provides an overview of the compliance status of network paths and associated details, such as source and destination IP addresses, ports, and protocols. The section includes a list of network paths that have been tested and their corresponding graphical representations in the form of SVG images. By analyzing the compliance data and SVG images, network administrators can identify and address issues affecting the network's performance and security.
+    <div class="main-title-container">
+      <div class="numbers">8</div>
+      <h1 class="main-titles" style="page-break-before: always;">Simulation Compliance</h1>
     </div>
-{% for params in path_context %}
+    <div class="section-8">
+      Path Compliance is a critical aspect of network management that helps ensure the proper functioning of network
+      paths
+      and their compliance with organizational policies. This section provides an overview of the compliance status of
+      network paths and associated details, such as source and destination IP addresses, ports, and protocols. The
+      section
+      includes a list of network paths that have been tested and their corresponding graphical representations in the
+      form
+      of SVG images. By analyzing the compliance data and SVG images, network administrators can identify and address
+      issues affecting the network's performance and security.
+    </div>
+    {% for params in path_context %}
     <table>
-        {% for key, value in params.items() %}
-            <tr>
-                <th>{{ key|capitalize }}</th>
-                <td>{{ value }}</td>
-            </tr>
-        {% endfor %}
+      {% for key, value in params.items() %}
+      <tr>
+        <th class="table-cell-width-even">{{ key|capitalize }}</th>
+        <td>{{ value }}</td>
+      </tr>
+      {% endfor %}
     </table>
-{% endfor %}
-  <div>
-    {{ path_svg_text | safe}}
+    {% endfor %}
+    <div>
+      {{ path_svg_text | safe}}
+    </div>
   </div>
-  </body>
+</body>
+
 </html>

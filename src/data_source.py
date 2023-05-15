@@ -4,6 +4,9 @@ import requests
 from ipfabric import IPFClient
 
 
+# resp = requests.get('')
+# resp.raise_for_status()
+
 class DataSource:
     def __init__(self, server_url, token, snapshot_id):
         self.ipf = IPFClient(server_url, token=token, snapshot_id=snapshot_id, verify=False, timeout=15)
@@ -77,7 +80,7 @@ class DataSource:
 class PathSimulation:
     def __init__(self, server_url, token, params):
         def get_api_version(api_version_url, api_version_token):
-            url = "{}/api/version".format(api_version_url)
+            url = f"{api_version_url}/api/version"
             headers = {
                 'Accept': 'application/json',
                 'X-API-Token': api_version_token
@@ -88,8 +91,8 @@ class PathSimulation:
             return response.json()
 
         api_version = get_api_version(server_url, token)
-        self.url = "{}/api/v6.1/graphs/".format(server_url, api_version)
-        self.url_svg = "{}/api/v6.1/graphs/svg". format(server_url, api_version)
+        self.url = f"{server_url}/api/{api_version}/graphs/"
+        self.url_svg = f"{server_url}/api/{api_version}/graphs/svg"
         self.headers = {
           'X-API-Token': token,
           'Content-Type': 'application/json'

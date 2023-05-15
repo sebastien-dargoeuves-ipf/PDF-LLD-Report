@@ -5,21 +5,28 @@ from src.data_source import PathSimulation
 import pdfkit
 import os
 
+from datetime import datetime
+
 
 def main():
     # Initialize DataSource with a token and server_url
     token = os.environ.get('API-TOKEN')  # netsim
-    server_url = 'https://10.194.50.22/'  # netsim
-    snapshot_id_01 = '33622054-dd2e-4456-87ec-18bcd73907d5'
-    snapshot_id_02 = 'f98a4241-e68b-49da-bf3e-9e8fb32e582b'
-
+    server_url = os.environ.get('NETSIM-URL')  # netsim
+    snapshot_id_01 = os.environ.get('SNAPSHOT-ID-01')
+    snapshot_id_02 = os.environ.get('SNAPSHOT-ID-02')
     data_source = DataSource(server_url, token, snapshot_id_01)
     data_source_prev = DataSource(server_url, token, snapshot_id_02)
+
+    # The time part
+    current_time = datetime.now()
+    formatted_time = current_time.strftime("%Y-%m-%d-%H-%M")
+    pdf_name = f"IPF-Report-{formatted_time}.pdf"
 
     # Set up the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('src/template.html')
 
+    # Path simulation params
     path_params_list = [
         {
             'Name': 'APP server to LAN2',
@@ -43,14 +50,20 @@ def main():
         },
     ]
 
-    path_context = []
-    for path_def in path_params_list:
-        ipf_path = PathSimulation(server_url, token, path_def)
-        ipf_path_svg = ipf_path.response_svg.text
-        path_context.append({**path_def, **{'path_overview': ipf_path_svg}})
+    def path_context(input_params: list[dict]) -> list[dict]:
+        """ Generates list of JSONs - path simulation results"""
+        return_context = list()
+        for path_def in input_params:
+            ipf_path = PathSimulation(server_url, token, path_def)
+            ipf_path_svg = ipf_path.response_svg.text
+            return_context.append({**path_def, **{'path_overview': ipf_path_svg}})
+        return return_context
 
     # Prepare the data to be inserted into the template
     context = {
+
+        # Time
+        'formatted_time': formatted_time,
 
         # Network data summary
         'system_url': data_source.system_url,
@@ -153,7 +166,7 @@ def main():
         'wireless_clients_delta': data_source.stp_neighbors - data_source_prev.stp_neighbors,
 
         # Path Compliance
-        'path_context': path_context
+        'path_context': path_context(path_params_list)
 
     }
 
@@ -161,7 +174,8 @@ def main():
     html_content = template.render(context)
 
     # Convert the rendered HTML to a PDF
-    pdfkit.from_string(html_content, 'export/report-lab.pdf')
+    options = {'enable-local-file-access': None}
+    pdfkit.from_string(html_content, f'export/ipf.pdf', options=options)
 
 
 if __name__ == "__main__":
