@@ -1,6 +1,7 @@
     /* Set the font to Calibri */
     body {
         font-family: 'Open Sans', sans-serif;
+        font-size: 18px;
     }
 
     /* Style for the first page */
@@ -105,7 +106,7 @@
         font-size: 23px;
         margin-bottom: 70px;
         margin-top: -30px;
-        color: #148567;
+        color: #274182;
     }
 
     .section-title {
@@ -143,7 +144,7 @@
         align-content: center;
         justify-content: center;
         text-align: center;
-        background-color: #148567;
+        background-color: #274182;
         color: #fff;
         font-size: 20px;
         font-weight: 700;

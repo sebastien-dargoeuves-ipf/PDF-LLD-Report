@@ -20,11 +20,8 @@ def main():
     # The time part
     current_time = datetime.now()
     formatted_time = current_time.strftime("%Y-%m-%d-%H-%M")
-    pdf_name = f"IPF-Report-{formatted_time}.pdf"
-
-    # Set up the Jinja2 environment and load the template
-    env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('src/template.html')
+    pdf_file_name = f"IPF-Report-{formatted_time}.pdf"
+    css_style = 'src/style.css'
 
     # Path simulation params
     path_params_list = [
@@ -170,12 +167,26 @@ def main():
 
     }
 
+    # Set up the Jinja2 environment and load the template
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('src/template.html')
+
     # Render the HTML with the data from the DataSource instance
-    html_content = template.render(context)
+    rendered_html = template.render(context)
 
     # Convert the rendered HTML to a PDF
-    options = {'enable-local-file-access': None}
-    pdfkit.from_string(html_content, f'export/ipf.pdf', options=options)
+    options = {
+        'enable-local-file-access': None,
+        'page-size': 'A4',
+        '--enable-internal-links': None,
+        '--enable-external-links': None,
+    }
+    pdfkit.from_string(
+        rendered_html,
+        f'export/{pdf_file_name}',
+        options=options,
+        css=css_style,
+        )
 
 
 if __name__ == "__main__":

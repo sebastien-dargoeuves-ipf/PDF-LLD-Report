@@ -79,7 +79,7 @@ class DataSource:
 
 class PathSimulation:
     def __init__(self, server_url, token, params):
-        def get_api_version(api_version_url, api_version_token):
+        def get_api_version(api_version_url: str, api_version_token: str) -> dict:
             url = f"{api_version_url}/api/version"
             headers = {
                 'Accept': 'application/json',
@@ -91,8 +91,8 @@ class PathSimulation:
             return response.json()
 
         api_version = get_api_version(server_url, token)
-        self.url = f"{server_url}/api/{api_version}/graphs/"
-        self.url_svg = f"{server_url}/api/{api_version}/graphs/svg"
+        self.url = f"{server_url}/api/{api_version['apiVersion']}/graphs/"
+        self.url_svg = f"{server_url}/api/{api_version['apiVersion']}/graphs/svg"
         self.headers = {
           'X-API-Token': token,
           'Content-Type': 'application/json'

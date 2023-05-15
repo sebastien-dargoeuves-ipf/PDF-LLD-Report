@@ -2,3 +2,4 @@ pdfkit
 requests
 ipfabric
 Jinja2
+weasyprint
