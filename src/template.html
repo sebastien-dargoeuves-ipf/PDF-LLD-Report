@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 
 <head>
   <meta charset="utf-8">
@@ -10,9 +10,8 @@
   <!-- First page content -->
   <br><br>
   <div class="logo">
-    <img src="https://ipfabric.io/wp-content/uploads/2023/SVG/IP_Fabric_VerticalLogo_Color.svg" width="600" height="300"/>
+    <img alt="IP Fabric logo" src="https://ipfabric.io/wp-content/uploads/2023/SVG/IP_Fabric_VerticalLogo_Color.svg"/>
   </div>
-  <br>
   <div class="main-title">
     <h1>DATA REPORT</h1>
   </div>
@@ -35,8 +34,8 @@
       </div>
     </div>
     <div class="main-title-container">
-      <div class="numbers">1</div>
-      <h2 class="main-titles">Network data summary</h2>
+        <div class="numbers">1</div>
+        <h2 class="main-titles">Network data summary</h2>
     </div>
     <table>
       <tr>
@@ -376,18 +375,20 @@
       issues affecting the network's performance and security.
     </div>
     {% for params in path_context %}
-    <table>
-      {% for key, value in params.items() %}
-      <tr>
-        <th class="table-cell-width-even">{{ key|capitalize }}</th>
-        <td>{{ value }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+      <h4>Path simulation data</h4>
+      <table>
+        {% for key, value in params['data'].items() %}
+        <tr>
+          <th class="table-cell-width-even">{{ key|capitalize }}</th>
+          <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h5>Path simulation result</h5>
+      <div class="path_svg">
+        <img src="{{ params['result']['svg'] }}" alt="Path result" style="width: 100%;">
+      </div>
     {% endfor %}
-    <div>
-      {{ path_svg_text | safe}}
-    </div>
   </div>
 </body>
 
