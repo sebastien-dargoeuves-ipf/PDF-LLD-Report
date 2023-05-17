@@ -3,16 +3,17 @@ This Python script generates a health report for a network using data from two d
 
 ## Requirements
 * Python 3.7 or higher 
-* pdfkit module
-* The requests library
-* The ipfabric library
+* jinja2
+* ipfabric
+* requests
+* weasyprint
 
 ## Usage
 * Clone this repository.
-* Install the pdfkit module using pip install pdfkit.
+* Install the weasyprint module using pip install weasyprint.
 * Set the appropriate values for token1, token2, server_url1, and server_url2 variables in main.py.
 * Run the script using python main.py.
-* The generated report will be saved in report-lab.pdf.
+* The generated report will be saved in export folder.
 
 To use this script, you will need to provide the following parameters:
 

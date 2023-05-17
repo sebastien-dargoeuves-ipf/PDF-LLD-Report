@@ -4,9 +4,6 @@ import requests
 from ipfabric import IPFClient
 
 
-# resp = requests.get('')
-# resp.raise_for_status()
-
 class DataSource:
     def __init__(self, server_url, token, snapshot_id):
         self.ipf = IPFClient(server_url, token=token, snapshot_id=snapshot_id, verify=False, timeout=15)

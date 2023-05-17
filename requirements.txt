@@ -1,5 +1,4 @@
-pdfkit
-requests
-ipfabric
 Jinja2
+ipfabric
+requests
 weasyprint

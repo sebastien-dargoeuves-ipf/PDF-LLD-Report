@@ -1,12 +1,12 @@
-from jinja2 import Environment, FileSystemLoader
-
+# Import the required modules
 from src.modules import transform_path_result
 from src.data_source import DataSource
 
-import os
-from pathlib import Path
 
 from datetime import datetime
+from jinja2 import Environment, FileSystemLoader
+import os
+from pathlib import Path
 from weasyprint import HTML
 
 
@@ -29,7 +29,11 @@ def main():
     pdf_file_path = Path('export/' + f"IPF-Report-{formatted_time}.pdf")
     css_file_path = Path('src/style.css')
 
-    # Path simulation params
+    # Set up the Jinja2 environment and load the HTML template
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('src/template.html')
+
+    # Path simulation parameters
     path_params_list = [
         {
             'Name': 'APP server to LAN2',
@@ -53,7 +57,7 @@ def main():
         },
     ]
 
-    # Prepare the data to be inserted into the HTML template
+    # Prepare the context data to be inserted into the HTML template
     context = {
 
         # Time
@@ -161,17 +165,13 @@ def main():
 
         # Path Compliance
         'path_context': transform_path_result(server_url, token, path_params_list)
-
     }
-
-    # Set up the Jinja2 environment and load the template
-    env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('src/template.html')
 
     # Save rendered HTML to a file
     with open(html_file_path, 'w') as f:
         f.write(template.render(context))
 
+    # Save rendered PDF to a file
     HTML(html_file_path).write_pdf(
         pdf_file_path,
         stylesheets=[css_file_path]
