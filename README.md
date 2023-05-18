@@ -73,5 +73,11 @@ The report contains the following sections:
 
 The "Path Compliance" section contains a table for each item in the path_params_list variable in main.py.
 
+## Improvements
+
+* Add mode data to comparee
+* Add CVEs from SDK
+* Add path simulation results (pass/fail)
+
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
