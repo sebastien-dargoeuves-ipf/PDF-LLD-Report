@@ -1,4 +1,4 @@
 Jinja2
 ipfabric
+requests
 weasyprint
-matplotlib
