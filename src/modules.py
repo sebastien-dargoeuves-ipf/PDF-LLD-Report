@@ -34,7 +34,8 @@ def transform_data(data_input):
     other_values = [v for v in data_input if float(v[1]) < 5]
     other = sum(float(str(v[1])) for v in other_values)
     data_output = [v for v in data_input if v not in other_values]
-    data_output.append(("Others", other))
+    if other:
+        data_output.append(("Others", other))
 
     return data_output
 

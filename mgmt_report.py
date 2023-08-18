@@ -38,9 +38,6 @@ def main():
     netflow_collectors = get_distribution_ratio(data_source.netflow_collectors, 'collector')
     sflow_collectors = get_distribution_ratio(data_source.sflow_collectors, 'collector')
     dns_resolver_servers = get_distribution_ratio(data_source.dns_resolver_servers, 'ip')
-    print(dns_resolver_servers)
-
-    some = []
 
     mgmt_proto_list = [
         {
@@ -58,14 +55,14 @@ def main():
             'plot': plot_pie_chart(ntp_sources, 'ntp'),
         },
         {
-            'name': 'Logging Remote',
+            'name': 'Syslog Servers',
             'description': 'The logging remote servers configured on the network devices.',
             'server_name': 'Syslog server',
             'servers': logging_remote,
             'plot': plot_pie_chart(logging_remote, 'logging'),
         },
         {
-            'name': 'SNMP Trap Hosts',
+            'name': 'SNMP Trap Servers',
             'description': 'The SNMP trap hosts configured on the network devices.',
             'server_name': 'SNMP trap server',
             'servers': snmp_trap_hosts,
@@ -86,7 +83,7 @@ def main():
             'plot': plot_pie_chart(sflow_collectors, 'sflow'),
         },
         {
-            'name': 'DNS Resolver Servers',
+            'name': 'DNS Resolvers',
             'description': 'The DNS resolver servers configured on the network devices.',
             'server_name': 'DNS resolver',
             'servers': dns_resolver_servers,

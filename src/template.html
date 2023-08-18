@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="EN" xmlns="http://www.w3.org/1999/html">
 
 <head>
   <meta charset="utf-8">
@@ -23,20 +23,14 @@
         <div class="section-title"> IP Fabric Data Overview</div>
       </div>
       <div>
-        The IP Fabric data report presents a comprehensive network infrastructure analysis, providing detailed insights
-        into
-        various sections such as network inventory, interfaces, addressing, switching, routing, and wireless
-        technologies.
-        <br><br>
-        The report is generated based on two snapshots, showcasing the values of the first snapshot and the delta value
-        (+/-) compared to the second snapshot. This approach allows network engineers and administrators to track the
-        changes and improvements made to the network over time.
+        The Management Protocols PDF report provides an overview of the distribution of management protocols servers in the network. The data was collected using IP Fabric's SDK and includes information about the following management protocols: SNMP, NTP, sFlow, NetFlow, Syslog, AAA, and DNS.
+        </br></br>
+        The report includes a pie chart for each management protocol section that shows the percentage of servers using each protocol. The table for distribution details provides more granular information about the distribution of servers' IPs.
+        </br></br>
+        This report can be used to identify potential areas for improvement in the network's management infrastructure. For example, if a particular management protocol is not being used by many servers, it may be possible to decommission the servers that are running that protocol.
       </div>
     </div>
-    <div class="main-title-container">
-        <div class="numbers">1</div>
-        <h2 class="main-titles">Network data summary</h2>
-    </div>
+    <h2 class="main-titles">Network data summary</h2>
     <table>
       <tr>
         <th>IP Fabric url</th>
@@ -66,15 +60,15 @@
 
       {% for proto in mgmt_protocols %}
         <div class="main-title-container">
-          <div class="numbers">2</div>
+          <div class="numbers">{{ loop.index0 + 1 }} </div>
           <h2 class="main-titles">{{ proto.name }}</h2>
         </div>
         <div class="section-2">
           {{ proto.description }}
         </div>
+          <h3 class="main-titles">{{ proto.server_name }} distribution summary</h3>
           {{ proto.plot}}
-          <h3 class="main-titles">{{ proto.server_name }} distribution</h3>
-
+          <h3 class="main-titles">{{ proto.server_name }} distribution details</h3>
           <table class="table-spacing">
             <thead>
               <tr>
