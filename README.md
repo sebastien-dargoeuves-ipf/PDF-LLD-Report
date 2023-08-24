@@ -4,7 +4,7 @@ This Python script generates a health report for a network using data from two d
 
 ## Requirements
 
-* Python 3.7 or higher
+* Python 3.8 or higher
 * Jinja2
 * ipfabric
 * weasyprint

@@ -6,8 +6,8 @@ from src.data_source import PathSimulation, Topology
 
 
 def transform_topology_result(
-    server_url_in: str,
-    token_in: str,
+    url: str,
+    token: str,
     topology_params_in: list,
     snapshot_id: str,
     timeout=30,
@@ -17,8 +17,8 @@ def transform_topology_result(
     def topology_result(input_params: dict) -> dict:
         """Generates list of JSONs - topology results"""
         topology_response = Topology(
-            server_url=server_url_in,
-            token=token_in,
+            url=url,
+            token=token,
             params=input_params,
             snapshot_id=snapshot_id,
             timeout=timeout,

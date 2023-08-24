@@ -9,7 +9,7 @@ from ipfabric.diagrams import (
 
 class DataSource:
     def __init__(
-        self, server_url, token, snapshot_id, site=None, timeout: Optional[int] = 30
+        self, url, token, snapshot_id, site=None, timeout: Optional[int] = 30
     ):
         if type(site) is str:
             site_filter = {"siteName": ["like", site]}
@@ -17,7 +17,7 @@ class DataSource:
             site_filter = {"siteName": ["reg", "|".join(site)]}
 
         self.ipf = IPFClient(
-            server_url,
+            url,
             auth=token,
             snapshot_id=snapshot_id,
             verify=False,
@@ -182,10 +182,10 @@ class DataSource:
 
 class Topology:
     def __init__(
-        self, server_url, token, params, snapshot_id, timeout: Optional[int] = 30
+        self, url, token, params, snapshot_id, timeout: Optional[int] = 30
     ):
         self.ipf = IPFDiagram(
-            base_url=server_url,
+            base_url=url,
             auth=token,
             snapshot_id=snapshot_id,
             verify=False,
@@ -196,7 +196,7 @@ class Topology:
         settings.ungroup_group("Layer 3")
         self.response_svg = self.ipf.diagram_svg(net, graph_settings=settings)
 
-    # def __init__(self, server_url, token, params, snapshot_id):
+    # def __init__(self, url, token, params, snapshot_id):
     #     def get_api_version(api_version_url: str, api_version_token: str) -> dict:
     #         url = f"{api_version_url}/api/version"
     #         headers = {
@@ -208,9 +208,9 @@ class Topology:
 
     #         return response.json()
 
-    #     api_version = get_api_version(server_url, token)
-    #     self.url = f"{server_url}/api/{api_version['apiVersion']}/graphs/"
-    #     self.url_svg = f"{server_url}/api/{api_version['apiVersion']}/graphs/svg"
+    #     api_version = get_api_version(url, token)
+    #     self.url = f"{url}/api/{api_version['apiVersion']}/graphs/"
+    #     self.url_svg = f"{url}/api/{api_version['apiVersion']}/graphs/svg"
     #     self.headers = {
     #       'X-API-Token': token,
     #       'Content-Type': 'application/json'

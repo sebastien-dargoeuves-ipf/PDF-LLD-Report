@@ -1,6 +1,5 @@
 # Import the required modules
 import os
-import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -54,14 +53,14 @@ def input_validation():
 def main():
     # Ask for the list of sites to generate the report for
     input_site = input_validation()
-    # Initialize DataSources with a token and server_url
-    server_url = os.environ.get("IPF_URL")
-    token = os.environ.get("IPF_TOKEN")
+    # Initialize DataSources with token and url of IPF server
+    ipf_url = os.environ.get("IPF_URL")
+    ipf_token = os.environ.get("IPF_TOKEN")
     snapshot_id = "$last"
     ipf_timeout = 15
     data_source = DataSource(
-        server_url=server_url,
-        token=token,
+        url=ipf_url,
+        token=ipf_token,
         snapshot_id=snapshot_id,
         site=input_site,
         timeout=ipf_timeout,
@@ -147,8 +146,8 @@ def main():
         "wireless_clients": data_source.wireless_clients,
         # Topology
         "topology_context": transform_topology_result(
-            server_url_in=server_url,
-            token_in=token,
+            url=ipf_url,
+            token=ipf_token,
             topology_params_in=topology_list,
             snapshot_id=snapshot_id,
             timeout=ipf_timeout,
