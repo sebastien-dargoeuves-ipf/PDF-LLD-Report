@@ -71,8 +71,10 @@ def main():
     formatted_time = current_time.strftime("%Y-%m-%d-%H-%M")
 
     # HTML, PDF and CSS file paths
-    html_file_path = Path(f"export/IPF-Report-{formatted_time}.html")
-    pdf_file_path = Path(f"export/IPF-Report-{formatted_time}.pdf")
+    export_path = Path("export")
+    export_path.mkdir(parents=True, exist_ok=True)
+    html_file_path = export_path / f"IPF-Report-{formatted_time}.html"
+    pdf_file_path = export_path / f"IPF-Report-{formatted_time}.pdf"
     css_file_path = Path("src/style.css")
 
     # Set up the Jinja2 environment and load the HTML template

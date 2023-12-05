@@ -1,8 +1,8 @@
 # Desc: Module for generating topology result
 import base64
 
-# Importing PathSimulation class from src.data_source
-from src.data_source import PathSimulation, Topology
+# Importing Topology class from src.data_source
+from src.data_source import Topology
 
 
 def transform_topology_result(
